@@ -34,6 +34,22 @@ Every bundle is a FHIR transaction Bundle using `PUT` with client-assigned ids (
 Each is a standalone transaction bundle; POST it to your server's base URL
 (`POST [base]`) or use your server's batch-upload mechanism.
 
+### Loading with the project script
+
+From the repository root, load the infrastructure bundle first and then all
+unlabeled and labeled patient bundles:
+
+```text
+python3 script/load_test_data.py --base-url http://localhost:8080/fhir
+```
+
+The loader uses only Python's standard library. It reports the status of every
+bundle and a final summary. Use `--only infrastructure`, `--only labeled`, or
+`--only unlabeled` to limit the data set; patient-only modes still load the
+infrastructure bundle first. Authentication options are `--basic-auth
+user:pass` and `--bearer TOKEN`. Add `--dry-run` to list the bundles without
+posting them.
+
 ## The two data sets
 
 ### `unlabeled/` -- for participants building their own AI ingestion
