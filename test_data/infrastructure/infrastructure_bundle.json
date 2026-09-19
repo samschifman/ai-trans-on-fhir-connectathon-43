@@ -23,6 +23,12 @@
                 }
               ]
             }
+          },
+          {
+            "url": "http://hl7.org/fhir/uv/aitransparency/StructureDefinition/aitransparency.modelCardDescription",
+            "valueReference": {
+              "reference": "DocumentReference/model-card-acme-clinical-text"
+            }
           }
         ],
         "identifier": [
@@ -42,7 +48,7 @@
           "coding": [
             {
               "system": "http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIdeviceTypeCS",
-              "code": "Clinical-Documentation-and-Workflow"
+              "code": "Artificial-Intelligence"
             }
           ]
         },
@@ -84,6 +90,12 @@
                 }
               ]
             }
+          },
+          {
+            "url": "http://hl7.org/fhir/uv/aitransparency/StructureDefinition/aitransparency.modelCardDescription",
+            "valueReference": {
+              "reference": "DocumentReference/model-card-acme-clinical-text"
+            }
           }
         ],
         "identifier": [
@@ -103,7 +115,7 @@
           "coding": [
             {
               "system": "http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIdeviceTypeCS",
-              "code": "AI-for-Medical-Text-Data"
+              "code": "Artificial-Intelligence"
             }
           ]
         },
@@ -145,6 +157,12 @@
                 }
               ]
             }
+          },
+          {
+            "url": "http://hl7.org/fhir/uv/aitransparency/StructureDefinition/aitransparency.modelCardDescription",
+            "valueReference": {
+              "reference": "DocumentReference/model-card-acme-earlywarn-risk"
+            }
           }
         ],
         "identifier": [
@@ -164,7 +182,7 @@
           "coding": [
             {
               "system": "http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIdeviceTypeCS",
-              "code": "Clinical-Monitoring-and-Early-Warning"
+              "code": "Artificial-Intelligence"
             }
           ]
         },
@@ -353,6 +371,108 @@
       "request": {
         "method": "PUT",
         "url": "DocumentReference/prompt-5"
+      }
+    },
+    {
+      "fullUrl": "DocumentReference/model-card-acme-clinical-text",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "model-card-acme-clinical-text",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/aitransparency/StructureDefinition/AI-ModelCard"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://example.org/ai-vendor/model-cards",
+            "value": "acme-clinical-text-foundation-model-1.0.0.md"
+          }
+        ],
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIinputsCS",
+              "code": "AIModelCard"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIinputsCS",
+                "code": "AIModelCardMarkdownFormat",
+                "display": "Markdown Format"
+              }
+            ]
+          }
+        ],
+        "description": "# Acme Clinical Text Foundation Model\n\n> Synthetic connectathon model card. This document describes dummy test data and\n> does not represent a production clinical model.\n\n## Model identity\n\n- **Model family:** Acme Clinical Text Foundation Model\n- **Model role:** Shared language model used by the ScribeAssist LLM and\n  TextXtract NLP Pipeline devices\n- **Model-card version:** 1.0.0\n- **Provider:** Acme Clinical AI, Inc.\n- **Related Devices:** `Device/ai-device-1` and `Device/ai-device-2`\n\n## Intended use\n\nThe model supports clinical-document summarization and extraction of explicitly\nstated observations, allergy information, and medication information from\nclinical text. It is intended to assist trained healthcare professionals and\ndata-processing workflows. It is not intended to diagnose, triage, prescribe,\nor make autonomous clinical decisions.\n\n## Training and evaluation data\n\nThis synthetic card does not claim a real training or evaluation dataset.\nConnectathon resources are fictional and are used only to exercise FHIR\nprovenance, model-card, and transparency workflows.\n\n## Limitations and risks\n\nThe model may omit, misinterpret, or incorrectly structure information from\nclinical text. Performance may vary with writing style, specialty, language,\nabbreviations, and missing context. Outputs require review by a qualified\nhuman before clinical use, and generated content must not be treated as an\nindependent source of truth.\n\n## Oversight and change management\n\nDeployments should record the device and version used for each AI-assisted\nresource in FHIR Provenance. Changes to the underlying model, prompts, or\nprocessing pipeline should receive a new model-card version and be evaluated\nbefore production use.\n",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/markdown",
+              "data": "IyBBY21lIENsaW5pY2FsIFRleHQgRm91bmRhdGlvbiBNb2RlbAoKPiBTeW50aGV0aWMgY29ubmVjdGF0aG9uIG1vZGVsIGNhcmQuIFRoaXMgZG9jdW1lbnQgZGVzY3JpYmVzIGR1bW15IHRlc3QgZGF0YSBhbmQKPiBkb2VzIG5vdCByZXByZXNlbnQgYSBwcm9kdWN0aW9uIGNsaW5pY2FsIG1vZGVsLgoKIyMgTW9kZWwgaWRlbnRpdHkKCi0gKipNb2RlbCBmYW1pbHk6KiogQWNtZSBDbGluaWNhbCBUZXh0IEZvdW5kYXRpb24gTW9kZWwKLSAqKk1vZGVsIHJvbGU6KiogU2hhcmVkIGxhbmd1YWdlIG1vZGVsIHVzZWQgYnkgdGhlIFNjcmliZUFzc2lzdCBMTE0gYW5kCiAgVGV4dFh0cmFjdCBOTFAgUGlwZWxpbmUgZGV2aWNlcwotICoqTW9kZWwtY2FyZCB2ZXJzaW9uOioqIDEuMC4wCi0gKipQcm92aWRlcjoqKiBBY21lIENsaW5pY2FsIEFJLCBJbmMuCi0gKipSZWxhdGVkIERldmljZXM6KiogYERldmljZS9haS1kZXZpY2UtMWAgYW5kIGBEZXZpY2UvYWktZGV2aWNlLTJgCgojIyBJbnRlbmRlZCB1c2UKClRoZSBtb2RlbCBzdXBwb3J0cyBjbGluaWNhbC1kb2N1bWVudCBzdW1tYXJpemF0aW9uIGFuZCBleHRyYWN0aW9uIG9mIGV4cGxpY2l0bHkKc3RhdGVkIG9ic2VydmF0aW9ucywgYWxsZXJneSBpbmZvcm1hdGlvbiwgYW5kIG1lZGljYXRpb24gaW5mb3JtYXRpb24gZnJvbQpjbGluaWNhbCB0ZXh0LiBJdCBpcyBpbnRlbmRlZCB0byBhc3Npc3QgdHJhaW5lZCBoZWFsdGhjYXJlIHByb2Zlc3Npb25hbHMgYW5kCmRhdGEtcHJvY2Vzc2luZyB3b3JrZmxvd3MuIEl0IGlzIG5vdCBpbnRlbmRlZCB0byBkaWFnbm9zZSwgdHJpYWdlLCBwcmVzY3JpYmUsCm9yIG1ha2UgYXV0b25vbW91cyBjbGluaWNhbCBkZWNpc2lvbnMuCgojIyBUcmFpbmluZyBhbmQgZXZhbHVhdGlvbiBkYXRhCgpUaGlzIHN5bnRoZXRpYyBjYXJkIGRvZXMgbm90IGNsYWltIGEgcmVhbCB0cmFpbmluZyBvciBldmFsdWF0aW9uIGRhdGFzZXQuCkNvbm5lY3RhdGhvbiByZXNvdXJjZXMgYXJlIGZpY3Rpb25hbCBhbmQgYXJlIHVzZWQgb25seSB0byBleGVyY2lzZSBGSElSCnByb3ZlbmFuY2UsIG1vZGVsLWNhcmQsIGFuZCB0cmFuc3BhcmVuY3kgd29ya2Zsb3dzLgoKIyMgTGltaXRhdGlvbnMgYW5kIHJpc2tzCgpUaGUgbW9kZWwgbWF5IG9taXQsIG1pc2ludGVycHJldCwgb3IgaW5jb3JyZWN0bHkgc3RydWN0dXJlIGluZm9ybWF0aW9uIGZyb20KY2xpbmljYWwgdGV4dC4gUGVyZm9ybWFuY2UgbWF5IHZhcnkgd2l0aCB3cml0aW5nIHN0eWxlLCBzcGVjaWFsdHksIGxhbmd1YWdlLAphYmJyZXZpYXRpb25zLCBhbmQgbWlzc2luZyBjb250ZXh0LiBPdXRwdXRzIHJlcXVpcmUgcmV2aWV3IGJ5IGEgcXVhbGlmaWVkCmh1bWFuIGJlZm9yZSBjbGluaWNhbCB1c2UsIGFuZCBnZW5lcmF0ZWQgY29udGVudCBtdXN0IG5vdCBiZSB0cmVhdGVkIGFzIGFuCmluZGVwZW5kZW50IHNvdXJjZSBvZiB0cnV0aC4KCiMjIE92ZXJzaWdodCBhbmQgY2hhbmdlIG1hbmFnZW1lbnQKCkRlcGxveW1lbnRzIHNob3VsZCByZWNvcmQgdGhlIGRldmljZSBhbmQgdmVyc2lvbiB1c2VkIGZvciBlYWNoIEFJLWFzc2lzdGVkCnJlc291cmNlIGluIEZISVIgUHJvdmVuYW5jZS4gQ2hhbmdlcyB0byB0aGUgdW5kZXJseWluZyBtb2RlbCwgcHJvbXB0cywgb3IKcHJvY2Vzc2luZyBwaXBlbGluZSBzaG91bGQgcmVjZWl2ZSBhIG5ldyBtb2RlbC1jYXJkIHZlcnNpb24gYW5kIGJlIGV2YWx1YXRlZApiZWZvcmUgcHJvZHVjdGlvbiB1c2UuCg=="
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DocumentReference/model-card-acme-clinical-text"
+      }
+    },
+    {
+      "fullUrl": "DocumentReference/model-card-acme-earlywarn-risk",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "model-card-acme-earlywarn-risk",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/uv/aitransparency/StructureDefinition/AI-ModelCard"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://example.org/ai-vendor/model-cards",
+            "value": "acme-earlywarn-risk-model-1.4.0.md"
+          }
+        ],
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIinputsCS",
+              "code": "AIModelCard"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIinputsCS",
+                "code": "AIModelCardMarkdownFormat",
+                "display": "Markdown Format"
+              }
+            ]
+          }
+        ],
+        "description": "# Acme EarlyWarn Risk Model\n\n> Synthetic connectathon model card. This document describes dummy test data and\n> does not represent a production clinical model.\n\n## Model identity\n\n- **Model name:** Acme EarlyWarn Risk Model\n- **Model version:** 1.4.0\n- **Model role:** Clinical-monitoring and early-warning risk scoring\n- **Provider:** Acme Clinical AI, Inc.\n- **Related Device:** `Device/ai-device-3`\n\n## Intended use\n\nThe model produces a structured risk score, risk category, and contributing\nfeatures from recent encounter history, active problems, vital signs, and\nlaboratory observations. It is intended to support review by trained\nhealthcare professionals. It is not intended to replace clinical judgment,\ndiagnosis, or treatment decisions.\n\n## Training and evaluation data\n\nThis synthetic card does not claim a real training or evaluation dataset.\nConnectathon resources are fictional and are used only to exercise FHIR\nprovenance, model-card, and transparency workflows.\n\n## Limitations and risks\n\nRisk estimates may be affected by missing, delayed, inaccurate, or\nnon-representative patient data. The score is not a clinical diagnosis and may\nnot generalize across populations, care settings, or workflows. A qualified\nhuman must review the inputs and output before any action is taken.\n\n## Oversight and change management\n\nDeployments should record the device and version used for each AI-assisted\nresource in FHIR Provenance. Changes to the model, feature preparation, or\nthresholds should receive a new model-card version and be evaluated before\nproduction use.\n",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/markdown",
+              "data": "IyBBY21lIEVhcmx5V2FybiBSaXNrIE1vZGVsCgo+IFN5bnRoZXRpYyBjb25uZWN0YXRob24gbW9kZWwgY2FyZC4gVGhpcyBkb2N1bWVudCBkZXNjcmliZXMgZHVtbXkgdGVzdCBkYXRhIGFuZAo+IGRvZXMgbm90IHJlcHJlc2VudCBhIHByb2R1Y3Rpb24gY2xpbmljYWwgbW9kZWwuCgojIyBNb2RlbCBpZGVudGl0eQoKLSAqKk1vZGVsIG5hbWU6KiogQWNtZSBFYXJseVdhcm4gUmlzayBNb2RlbAotICoqTW9kZWwgdmVyc2lvbjoqKiAxLjQuMAotICoqTW9kZWwgcm9sZToqKiBDbGluaWNhbC1tb25pdG9yaW5nIGFuZCBlYXJseS13YXJuaW5nIHJpc2sgc2NvcmluZwotICoqUHJvdmlkZXI6KiogQWNtZSBDbGluaWNhbCBBSSwgSW5jLgotICoqUmVsYXRlZCBEZXZpY2U6KiogYERldmljZS9haS1kZXZpY2UtM2AKCiMjIEludGVuZGVkIHVzZQoKVGhlIG1vZGVsIHByb2R1Y2VzIGEgc3RydWN0dXJlZCByaXNrIHNjb3JlLCByaXNrIGNhdGVnb3J5LCBhbmQgY29udHJpYnV0aW5nCmZlYXR1cmVzIGZyb20gcmVjZW50IGVuY291bnRlciBoaXN0b3J5LCBhY3RpdmUgcHJvYmxlbXMsIHZpdGFsIHNpZ25zLCBhbmQKbGFib3JhdG9yeSBvYnNlcnZhdGlvbnMuIEl0IGlzIGludGVuZGVkIHRvIHN1cHBvcnQgcmV2aWV3IGJ5IHRyYWluZWQKaGVhbHRoY2FyZSBwcm9mZXNzaW9uYWxzLiBJdCBpcyBub3QgaW50ZW5kZWQgdG8gcmVwbGFjZSBjbGluaWNhbCBqdWRnbWVudCwKZGlhZ25vc2lzLCBvciB0cmVhdG1lbnQgZGVjaXNpb25zLgoKIyMgVHJhaW5pbmcgYW5kIGV2YWx1YXRpb24gZGF0YQoKVGhpcyBzeW50aGV0aWMgY2FyZCBkb2VzIG5vdCBjbGFpbSBhIHJlYWwgdHJhaW5pbmcgb3IgZXZhbHVhdGlvbiBkYXRhc2V0LgpDb25uZWN0YXRob24gcmVzb3VyY2VzIGFyZSBmaWN0aW9uYWwgYW5kIGFyZSB1c2VkIG9ubHkgdG8gZXhlcmNpc2UgRkhJUgpwcm92ZW5hbmNlLCBtb2RlbC1jYXJkLCBhbmQgdHJhbnNwYXJlbmN5IHdvcmtmbG93cy4KCiMjIExpbWl0YXRpb25zIGFuZCByaXNrcwoKUmlzayBlc3RpbWF0ZXMgbWF5IGJlIGFmZmVjdGVkIGJ5IG1pc3NpbmcsIGRlbGF5ZWQsIGluYWNjdXJhdGUsIG9yCm5vbi1yZXByZXNlbnRhdGl2ZSBwYXRpZW50IGRhdGEuIFRoZSBzY29yZSBpcyBub3QgYSBjbGluaWNhbCBkaWFnbm9zaXMgYW5kIG1heQpub3QgZ2VuZXJhbGl6ZSBhY3Jvc3MgcG9wdWxhdGlvbnMsIGNhcmUgc2V0dGluZ3MsIG9yIHdvcmtmbG93cy4gQSBxdWFsaWZpZWQKaHVtYW4gbXVzdCByZXZpZXcgdGhlIGlucHV0cyBhbmQgb3V0cHV0IGJlZm9yZSBhbnkgYWN0aW9uIGlzIHRha2VuLgoKIyMgT3ZlcnNpZ2h0IGFuZCBjaGFuZ2UgbWFuYWdlbWVudAoKRGVwbG95bWVudHMgc2hvdWxkIHJlY29yZCB0aGUgZGV2aWNlIGFuZCB2ZXJzaW9uIHVzZWQgZm9yIGVhY2ggQUktYXNzaXN0ZWQKcmVzb3VyY2UgaW4gRkhJUiBQcm92ZW5hbmNlLiBDaGFuZ2VzIHRvIHRoZSBtb2RlbCwgZmVhdHVyZSBwcmVwYXJhdGlvbiwgb3IKdGhyZXNob2xkcyBzaG91bGQgcmVjZWl2ZSBhIG5ldyBtb2RlbC1jYXJkIHZlcnNpb24gYW5kIGJlIGV2YWx1YXRlZCBiZWZvcmUKcHJvZHVjdGlvbiB1c2UuCg=="
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DocumentReference/model-card-acme-earlywarn-risk"
       }
     },
     {

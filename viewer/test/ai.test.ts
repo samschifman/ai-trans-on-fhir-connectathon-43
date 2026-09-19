@@ -45,15 +45,68 @@ describe('AI resource logic', () => {
       readBundle('test_data/infrastructure/infrastructure_bundle.json'),
     ).filter(
       (resource): resource is fhir4.DocumentReference =>
-        resource.resourceType === 'DocumentReference',
+        resource.resourceType === 'DocumentReference' && isInputDocument(resource),
     );
     expect(documents).toHaveLength(5);
-    expect(documents.every((document) => isInputDocument(document))).toBe(true);
     for (const document of documents) {
       const decoded = decodePromptText(document);
       expect(decoded.text?.match(/System Prompt/g)).toHaveLength(1);
       expect(decoded.description).toBeUndefined();
     }
+  });
+
+  it('links AI devices to valid Markdown model cards', () => {
+    const infrastructure = resources(
+      readBundle('test_data/infrastructure/infrastructure_bundle.json'),
+    );
+    const devices = infrastructure.filter(
+      (resource): resource is fhir4.Device => resource.resourceType === 'Device',
+    );
+    const modelCards = infrastructure.filter(
+      (resource): resource is fhir4.DocumentReference =>
+        resource.resourceType === 'DocumentReference' &&
+        resource.meta?.profile?.includes(
+          'http://hl7.org/fhir/uv/aitransparency/StructureDefinition/AI-ModelCard',
+        ),
+    );
+
+    expect(modelCards).toHaveLength(2);
+    for (const modelCard of modelCards) {
+      expect(
+        modelCard.type?.coding?.some(
+          (coding) =>
+            coding.system === 'http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIinputsCS' &&
+            coding.code === 'AIModelCard',
+        ),
+      ).toBe(true);
+      expect(
+        modelCard.category?.some((category) =>
+          category.coding?.some(
+            (coding) =>
+              coding.system === 'http://hl7.org/fhir/uv/aitransparency/CodeSystem/AIinputsCS' &&
+              coding.code === 'AIModelCardMarkdownFormat',
+          ),
+        ),
+      ).toBe(true);
+      const attachment = modelCard.content?.[0]?.attachment;
+      expect(attachment?.contentType).toBe('text/markdown');
+      expect(attachment?.data).toBeTruthy();
+      expect(atob(attachment?.data ?? '')).toBe(modelCard.description);
+    }
+
+    const cardReferences = devices.map(
+      (device) =>
+        device.extension?.find(
+          (extension) =>
+            extension.url ===
+            'http://hl7.org/fhir/uv/aitransparency/StructureDefinition/aitransparency.modelCardDescription',
+        )?.valueReference?.reference,
+    );
+    expect(cardReferences).toEqual([
+      'DocumentReference/model-card-acme-clinical-text',
+      'DocumentReference/model-card-acme-clinical-text',
+      'DocumentReference/model-card-acme-earlywarn-risk',
+    ]);
   });
 
   it('tracks resource and inline labels independently', () => {

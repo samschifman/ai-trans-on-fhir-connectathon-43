@@ -12,7 +12,7 @@ See "Regenerating this data" below for exact seeds.
 ## What's here
 
 ```
-infrastructure/infrastructure_bundle.json   3 AI Devices, 5 prompt DocumentReferences, 1 Practitioner
+infrastructure/infrastructure_bundle.json   3 AI Devices, 5 prompt DocumentReferences, 2 model-card DocumentReferences, 1 Practitioner
 unlabeled/*_bundle.json                     2 patients, zero AI labels anywhere (+ a hand-written note each)
 labeled/*_bundle.json                       20 patients, mixed AI-labeled / unlabeled resources
 manifest.json                               machine-readable expected results for every verification query below
@@ -20,6 +20,12 @@ manifest.json                               machine-readable expected results fo
 
 Every bundle is a FHIR transaction Bundle using `PUT` with client-assigned ids (not
 `POST`), so loading is idempotent and every id is stable and known in advance.
+
+The infrastructure bundle includes two synthetic Markdown model cards. The card
+`DocumentReference/model-card-acme-clinical-text` is shared by `Device/ai-device-1`
+and `Device/ai-device-2`; `Device/ai-device-3` references
+`DocumentReference/model-card-acme-earlywarn-risk`. Each device links to its model
+card through the AI Transparency `modelCardDescription` extension.
 
 ## Load order
 
@@ -97,11 +103,11 @@ least 2 patients, with no single device or prompt covering the whole data set
 
 The 3 AI Devices represent distinct kinds of AI (see `AIdeviceTypeCS`):
 
-| Device | Identity | AIKind |
-|---|---|---|
-| `ai-device-1` | ScribeAssist LLM | `Large-Language-Models` |
-| `ai-device-2` | TextXtract NLP Pipeline | `AI-for-Medical-Text-Data` |
-| `ai-device-3` | EarlyWarn Risk Model | `Machine-Learning-Models` |
+| Device | Identity | AIKind | Model card |
+|---|---|---|---|
+| `ai-device-1` | ScribeAssist LLM | `Large-Language-Models` | `model-card-acme-clinical-text` |
+| `ai-device-2` | TextXtract NLP Pipeline | `AI-for-Medical-Text-Data` | `model-card-acme-clinical-text` |
+| `ai-device-3` | EarlyWarn Risk Model | `Machine-Learning-Models` | `model-card-acme-earlywarn-risk` |
 
 The 5 prompts (`prompt-1` mainly used by `ai-device-1`, `prompt-2` shared between
 `ai-device-1` and `ai-device-3`, `prompt-3`/`prompt-4` used by `ai-device-2`, `prompt-5`
